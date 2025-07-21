@@ -1,0 +1,18 @@
+
+("Ask (“ What time do you want to set the alarm? (Military time)“)
+If input is not an integer,
+Print (“error, try again”)
+If input is an integer,
+Alarm = input
+Time = 0
+
+Every 1 second, 
+	Time = Time + 1
+		If Time = Alarm
+			Play alarm sound
+			Ask (“Snooze or Stop?”)
+			If input is Snooze
+				Alarm = Alarm + 10
+			If input is Stop
+				Break loop
+")
