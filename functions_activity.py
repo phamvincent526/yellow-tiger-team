@@ -9,62 +9,28 @@ menu = {
 }
 
 def total_price(item1, item2):
-    if item1 in menu and item2 in menu:
-        total = menu[item1] + menu[item2]
-        return f"The total price of {item1} and {item2} is ${total:.2f}"
-    else:
-        return "One or both items are not on the menu."
-
-print(total_price("Pizza", "Burger"))
+    total = menu[item1] + menu[item2]
+    return total
 
 def price_difference(item1, item2):
-    if item1 in menu and item2 in menu:
-        difference = abs(menu[item1] - menu[item2])
-        return f"The difference between {item1} and {item2} is ${difference:.2f}"
-    else:
-        return "One or both items are not on the menu."
+    difference = menu[item1] - menu[item2]
+    return abs(difference)
 
-print(price_difference("Pizza", "Burger"))
+def inflation(item, inflation):
+    menu[item] = menu[item] * inflation
+    return menu
 
-def total_price_multiple(*items):
-    total = 0
-    missing_items = []
-    for item in items:
-        if item in menu:
-            total += menu[item]
-        else:
-            missing_items.append(item)
-    if missing_items:
-        return f"These items are not on the menu: {', '.join(missing_items)}"
-    return f"The total price of {', '.join(items)} is ${total:.2f}"
+def deflation(item, deflation):
+    menu[item] = menu[item] / deflation
+    return menu
 
-print(total_price_multiple("Pizza", "Cheese", "Soda"))
-print(total_price_multiple("Pizza", "Steak", "Hot dog"))
+def discount(item, discount):
+    menu[item] = menu[item] * (1 - discount / 100)
+    return menu[item]
 
-def inflation(item1, multi):
-    if item1 in menu:
-        menu[item1] = round(menu[item1] * multi, 2)
-        return menu 
-    else:
-        return f"{item1} is not on the menu."
+print(total_price("Cheese", "Hot dog"))
+print(price_difference("Burger", "Cheese"))
+print(inflation("Pizza", 2))
+print(deflation("Pizza", 2))
+print(discount("Pizza", 99))
 
-print("Updated menu after inflation:", inflation("Pizza", 1.1))
-
-def deflation(item1, multi):
-    if item1 in menu:
-        menu[item1] = round(menu[item1] / multi, 2)
-        return menu 
-    else:
-        return f"{item1} is not on the menu."
-
-print("Updated menu after deflation:", deflation("Pizza", 1.1))
-
-def items_with_99_cents():
-    result = []
-    for item, price in menu.items():
-        cents = round(price % 1, 2)  # Get the decimal part of the price
-        if cents == 0.99:
-            result.append(item)
-    return result
-
-print("Items with 99 cents:", items_with_99_cents())
